@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Student</h2>
+
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success">Studentai sekmingai prideti</div>
+}
+
+@using (Html.BeginForm("addStudent", "Student", FormMethod.Post))
+{
+    <div class="col-3">
+        <div class="form-group">
+            @Html.Label("Studento vardas")
+            @Html.TextBox("StudentName", @Request["studentName"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="form-group">
+            @Html.Label("Studento pavarde")
+            @Html.TextBox("StudentSurName", @Request["studentSurName"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="form-group">
+            @Html.Label("Kursas")
+            @Html.TextBox("studyCourse", @Request["studyCourse"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <button type="submit" class="btn btn-primary"> Saugoti </button>
+        </div>
+    </div>
+}

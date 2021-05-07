@@ -1,0 +1,39 @@
+﻿@using Lab2.Models
+@{
+    ViewBag.Title = "Add_Remove_Module";
+}
+
+<h2>Modulio pridėjimas</h2>
+
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success">Modulis sekmingai pridėtas</div>
+}
+
+@using (Html.BeginForm("AddModuleForm", "Module", FormMethod.Post))
+{
+    <div class="col-3">
+        <div class="form-group">
+            @Html.Label("Modulio Pavadinimas")
+            @Html.TextBox("m_name", @Request["m_name"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="form-group">
+            @Html.Label("Modulio Aprašymas")
+            @Html.TextArea("m_desc", @Request["m_desc"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <button type="submit" class="btn btn-primary"> Saugoti </button>
+        </div>
+
+    </div>
+
+
+}
+
+

@@ -1,0 +1,26 @@
+﻿@using Lab2.Models
+
+@{
+    ViewBag.Title = "StudentList";
+}
+
+<h2>StudentList</h2>
+<table>
+    <thead>
+    <th>id</th><th>Vardas</th><th>Pavarde</th><th>Modulis</th>
+    </thead>
+    <tbody>
+    @if (ViewData["Students"] != null)
+    {
+        foreach (var student in ViewData["Students"] as List<StudentList>)
+        {
+            <tr>
+                <td>@student.id</td>
+                <td>@student.s_vardas</td>
+                <td>@student.s_pavarde</td>
+                <td>@student.s_modulis</td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
