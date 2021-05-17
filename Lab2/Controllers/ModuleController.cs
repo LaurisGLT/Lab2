@@ -40,9 +40,11 @@ namespace Lab2.Controllers
                     });
                 }
             }
+            
+
 
             ViewData["Modules"] = all_Modules;
-
+            cmd.Close();
             return View();
         }
 
@@ -60,53 +62,57 @@ namespace Lab2.Controllers
             @ViewBag.Success = true;
             return View("Add_Remove_Module");
         }
-/*
-        public ActionResult RemoveModuleForm(FormCollection form)
+
+        public ActionResult Add_Remove_Module()
         {
             if (db_contex.State != ConnectionState.Open)
             {
                 db_contex.Open();
             }
 
-            MySqlCommand select_all_modules = new MySqlCommand("Select * From module Order By id", db_contex);
-            MySqlDataReader cmd = select_all_modules.ExecuteReader();
+            return View();
+        }
+       
+        public ActionResult UniqueModule(int? id, FormCollection form)
+        {
+            if (db_contex.State != ConnectionState.Open)
+            {
+                db_contex.Open();
+            }
 
-            List<ModuleList> all_Modules = new List<ModuleList>();
+            int? Mod_id = id;
+
+
+            string query = String.Format("INSERT INTO topics (`Mod_id`,`Topic_name`,`Topic_desc`) VALUES ('{0}','{1}','{2}')", Mod_id ,form["Topic_name"], form["Topic_desc"]);
+            MySqlCommand AddTopic = new MySqlCommand(query, db_contex);
+            AddTopic.ExecuteReader();
+            @ViewBag.Success = true;
+
+            MySqlCommand select_module_topics = new MySqlCommand("Select * From topics Order By Topic_Id", db_contex);
+            MySqlDataReader cmd = select_module_topics.ExecuteReader();
+
+            List<TopicList> Topics = new List<TopicList>();
 
 
             if (cmd.FieldCount > 0)
             {
                 while (cmd.Read())
                 {
-                    all_Modules.Add(new ModuleList()
+                    Topics.Add(new TopicList()
                     {
-                        id = int.Parse(cmd["id"].ToString()),
-                        m_name = cmd["m_name"].ToString(),
+                        Topic_Id = int.Parse(cmd["Topic_Id"].ToString()),
+                        Mod_Id = int.Parse(cmd["Mod_Id"].ToString()),
+                        Topic_name = cmd["m_name"].ToString(),
+                        Topic_desc = cmd["m_desc"].ToString()
                     });
                 }
             }
 
-          
 
-            string query = String.Format("DELETE FROM module WHERE id = '$id'");
-            MySqlCommand RemoveModule = new MySqlCommand(query, db_contex);
-            RemoveModule.ExecuteReader();
+            cmd.Close();
+            ViewData["mod_topics"] = Topics;
 
-            @ViewBag.Success = true;
 
-            ViewData["Modules"] = all_Modules;
-
-            return View("Add_Remove_Module");
-        }
-*/
-        public ActionResult Add_Remove_Module()
-        {
-
-            return View();
-        }
-
-        public ActionResult UniqueModule()
-        {
 
             return View("UnModule");
         }

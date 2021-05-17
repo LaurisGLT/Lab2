@@ -1,7 +1,56 @@
-﻿
+﻿@using Lab2.Models
 @{
     ViewBag.Title = "UnModule";
 }
 
-<h2>UnModule</h2>
+<h2>Temos sukūrimas</h2>
 
+@if (ViewBag.Success == true)
+{
+    <div class="alert alert-success">Tema sėkmingai pridėta</div>
+}
+
+@using (Html.BeginForm("UniqueModule", "Module", FormMethod.Post))
+{
+    <div class="col-3">
+        <div class="form-group">
+            @Html.Label("Temos Pavadinimas")
+            @Html.TextBox("Topic_name", @Request["Topic_name"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="col-3">
+        <div class="form-group">
+            @Html.Label("Temos Aprašymas")
+            @Html.TextArea("Topic_desc", @Request["Topic_desc"], new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <button type="submit" class="btn btn-primary"> Saugoti </button>
+        </div>
+
+    </div>
+
+
+}
+
+@if (ViewData["mod_topics"] != null)
+{
+<div class="row">
+    @foreach (var Topic in ViewData["Topics"] as List<TopicList>)
+    {
+                    
+        <div class="col-md-4" style="padding-bottom: 10px">
+            <div class="card" style="width: 18rem; border-style: dashed; border-color: black">
+                <div class="card-body">
+                    <h3 class="card-title">@Topic.Topic_name</h3>
+                    <p class="card-text">@Topic.Topic_desc</p>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+}
