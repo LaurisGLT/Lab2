@@ -21,7 +21,7 @@
                 <div class="col-md-4" style="padding-bottom: 10px">
                     <div class="card" style="width: 18rem; border-style: dashed; border-color: black">
                         <div class="card-body">
-                            <h3 class="card-title">@module.m_name</h3>
+                            <h3 class="card-title">@module.m_name, id-@module.id</h3>
                             <p class="card-text">@module.m_desc</p>
                             @Html.ActionLink("Peržiūrėti modulį","UniqueModule", "Module",new{id = @module.id},new { @class = "btn btn-primary btn-large" })
                         </div>

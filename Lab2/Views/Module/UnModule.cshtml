@@ -9,48 +9,113 @@
 {
     <div class="alert alert-success">Tema sėkmingai pridėta</div>
 }
-
-@using (Html.BeginForm("UniqueModule", "Module", FormMethod.Post))
+@if (ViewBag.Update == true)
 {
-    <div class="col-3">
-        <div class="form-group">
-            @Html.Label("Temos Pavadinimas")
-            @Html.TextBox("Topic_name", @Request["Topic_name"], new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="col-3">
-        <div class="form-group">
-            @Html.Label("Temos Aprašymas")
-            @Html.TextArea("Topic_desc", @Request["Topic_desc"], new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div>
-        <div>
-            <button type="submit" class="btn btn-primary"> Saugoti </button>
-        </div>
-
-    </div>
-
-
+    <div class="alert alert-warning">Tema sėkmingai pakeista</div>
 }
-
-@if (ViewData["mod_topics"] != null)
+@if (ViewBag.Deletion == true)
 {
+    <div class="alert alert-danger">Tema sėkmingai ištrinta</div>
+}
 <div class="row">
-    @foreach (var Topic in ViewData["Topics"] as List<TopicList>)
+    @using (Html.BeginForm("UniqueModule", "Module", FormMethod.Post))
     {
-                    
-        <div class="col-md-4" style="padding-bottom: 10px">
-            <div class="card" style="width: 18rem; border-style: dashed; border-color: black">
-                <div class="card-body">
-                    <h3 class="card-title">@Topic.Topic_name</h3>
-                    <p class="card-text">@Topic.Topic_desc</p>
+        <div class="col-xs-3">
+            <div class="form-group">
+                @Html.Label("Temos Pavadinimas")
+                @Html.TextBox("Topic_name", @Request["Topic_name"], new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="col-xs-3">
+            <div class="form-group">
+                @Html.Label("Temos Aprašymas")
+                @Html.TextArea("Topic_desc", @Request["Topic_desc"], new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <button type="submit" class="btn btn-primary"> Saugoti </button>
+            </div>
+
+        </div>
+
+
+    }
+
+    @using (Html.BeginForm("UnEditForm", "Module", FormMethod.Post))
+    {
+        <div class="container" style="padding-inline: 20px">
+            <div class="col-xs-3">
+                <div class="form-group">
+                    @Html.Label("Topic Id")
+                    @Html.TextBox("Topic_Id", @Request["Topic_Id"], new { @class = "form-control" })
                 </div>
+            </div>
+
+            <div class="col-xs-3">
+                <div class="form-group">
+                    @Html.Label("Temos Pavadinimas")
+                    @Html.TextBox("Topic_name", @Request["Topic_name"], new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-xs-3">
+                <div class="form-group">
+                    @Html.Label("Temos Aprašymas")
+                    @Html.TextArea("Topic_desc", @Request["Topic_desc"], new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <button type="submit" class="btn btn-warning"> Redaguoti </button>
+                </div>
+
+            </div>
+        </div>
+
+    }
+
+    @using (Html.BeginForm("UnDeleteForm", "Module", FormMethod.Post))
+    {
+        <div class="container">
+            <div class="col-xs-3">
+                <div class="form-group">
+                    @Html.Label("Temos Id")
+                    @Html.TextBox("Topic_Id", @Request["Topic_Id"], new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <button type="submit" class="btn btn-danger"> Ištrinti modulį </button>
+                </div>
+
             </div>
         </div>
 
     }
 </div>
+<br />
+@if (ViewData["mod_topics"] != null)
+{
+    <div class="container">
+        <div class="col">
+            @foreach (var Topic in ViewData["mod_topics"] as List<TopicList>)
+            {
+
+                <div class="row" style="padding-bottom: 10px; display: flex; justify-content: center">
+                    <div class="card" style="width: 18rem; border-style: dashed; border-color: black">
+                        <div class="card-body">
+                            <h3 class="card-title">@Topic.Topic_name, id-@Topic.Topic_Id</h3>
+                            <p class="card-text">@Topic.Topic_desc</p>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
 }
